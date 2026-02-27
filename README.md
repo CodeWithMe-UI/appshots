@@ -1,107 +1,97 @@
 # appshots
 
-Generate App Store-ready screenshots from your web app. Capture, frame, and validate — all from the CLI.
+Turn raw app screenshots into App Store-ready promotional images — from the CLI.
 
-- **Capture** screenshots from any running web app with Playwright
-- **Frame** raw screenshots with backgrounds, rounded corners, and promotional text
-- **Validate** screenshots against App Store / Play Store dimension requirements
-- **26 device presets** built in — iPhone, iPad, Android, Mac, Apple Watch, Apple TV, Vision Pro
+<p align="center">
+  <img src="examples/hero.png" alt="appshots example output" width="100%" />
+</p>
 
-## Quick Start
+## What it does
+
+Take any screenshot from your app and turn it into a polished, store-ready image with one command:
+
+<p align="center">
+  <img src="examples/before-after.png" alt="Before and after framing" width="600" />
+</p>
 
 ```bash
-# Frame existing screenshots for iPhone 6.9"
-npx appshots frame ./raw-screenshots --device iphone-6.9
-
-# With promotional background and text
-npx appshots frame ./raw-screenshots \
+npx appshots frame screenshot.png \
   --device iphone-6.9 \
   --background "linear-gradient(135deg, #667eea, #764ba2)" \
-  --title "Your App Name" \
-  --subtitle "Tagline goes here"
-
-# Capture from a running web app
-npx appshots capture --url http://localhost:3000 --device iphone-6.9 --path /home /features /pricing
-
-# Validate dimensions
-npx appshots validate ./screenshots
-
-# List all device presets
-npx appshots devices
+  --title "AI Menu Analysis" \
+  --subtitle "Ranked by your goals"
 ```
+
+**appshots** handles three things:
+
+1. **Frame** — wrap raw screenshots in backgrounds, rounded corners, shadows, and text
+2. **Capture** — screenshot a running web app at exact device pixel ratios
+3. **Validate** — check dimensions, format, and file size against store requirements
+
+26 built-in device presets: iPhone, iPad, Android, Mac, Apple Watch, Apple TV, Vision Pro.
 
 ## Install
 
 ```bash
 npm install -g appshots
-
-# Or use directly with npx
-npx appshots --help
 ```
 
-For the `capture` command, you also need Playwright:
+Or run directly without installing:
 
 ```bash
-npm install -D playwright
+npx appshots frame ./my-screenshots --device iphone-6.9
 ```
 
-## Commands
+> **Note:** The `capture` command requires Playwright (`npm i -D playwright`). The `frame` and `validate` commands work without it.
 
-### `appshots frame <input>`
+## Quick Start
 
-Frame raw screenshots with backgrounds, rounded corners, and promotional text. Input can be a single file or a directory of images.
+### 1. Frame existing screenshots
+
+You already have screenshots from your simulator, phone, or browser. Make them store-ready:
 
 ```bash
+# Simple — just resize to exact App Store dimensions
 appshots frame ./screenshots --device iphone-6.9
-appshots frame screenshot.png --device ipad-13 --background "#1a1a2e" --title "Welcome"
-appshots frame ./raw --device android-phone --background "linear-gradient(45deg, #ff6b6b, #feca57)"
+
+# Promotional — add background gradient and text
+appshots frame ./screenshots \
+  --device iphone-6.9 \
+  --background "linear-gradient(135deg, #667eea, #764ba2)" \
+  --title "Your App Name" \
+  --subtitle "Your tagline here"
+
+# Solid background
+appshots frame ./screenshots --device ipad-13 --background "#1a1a2e" --title "Dashboard"
+
+# Process a single file
+appshots frame home.png --device iphone-6.9 -o ./store-ready
 ```
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `-d, --device <slug>` | Target device preset | `iphone-6.9` |
-| `-o, --output <dir>` | Output directory | `./screenshots/framed` |
-| `-b, --background <value>` | Solid color or CSS gradient | `#000000` |
-| `-t, --title <text>` | Title text overlay | — |
-| `-s, --subtitle <text>` | Subtitle text overlay | — |
-| `--padding <ratio>` | Padding ratio (0–0.4) | `0.08` |
-| `--border-radius <ratio>` | Corner radius ratio (0–0.2) | `0.04` |
-| `--landscape` | Landscape orientation | — |
-| `--no-shadow` | Disable drop shadow | — |
-| `-c, --config <path>` | Config file path | — |
+### 2. Capture from a running web app
 
-### `appshots capture`
-
-Capture screenshots from a running web app using headless Playwright.
+Point appshots at your running app and it captures pixel-perfect screenshots:
 
 ```bash
-appshots capture --url http://localhost:3000 --device iphone-6.9 --path / /about /pricing
+# Capture specific pages
+appshots capture --url http://localhost:3000 --device iphone-6.9 --path / /features /pricing
+
+# Use a config file for repeatable captures
 appshots capture --config appshots.config.ts
 ```
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `-u, --url <url>` | Base URL of the running app | `http://localhost:3000` |
-| `-d, --device <slug>` | Target device preset | `iphone-6.9` |
-| `-p, --path <paths...>` | URL paths to capture | — |
-| `-o, --output <dir>` | Output directory | `./screenshots` |
-| `--landscape` | Landscape orientation | — |
-| `-c, --config <path>` | Config file path | — |
+### 3. Validate before uploading
 
-### `appshots validate <dir>`
-
-Check screenshots against App Store and Play Store requirements (dimensions, format, file size, color space, transparency).
+Check that your screenshots meet App Store / Play Store requirements:
 
 ```bash
 appshots validate ./screenshots
-#   ✓ home.png 1320x2868 (iPhone 6.9")
-#   ✗ feed.png 1080x1920 (Standard Android phone)
-#     → PNG has transparency. App Store requires no transparency.
+#   ✓ home.png         1320x2868  (iPhone 6.9")
+#   ✓ results.png      1320x2868  (iPhone 6.9")
+#   ✗ old-screen.png   1080x1920  → PNG has transparency. App Store requires no transparency.
 ```
 
-### `appshots devices`
-
-List all built-in device presets with dimensions.
+### 4. List device presets
 
 ```bash
 appshots devices
@@ -109,13 +99,16 @@ appshots devices --platform ios
 appshots devices --category tablet
 ```
 
-### `appshots init`
+### 5. Generate a config file
 
-Generate an `appshots.config.ts` config file in the current directory.
+```bash
+appshots init
+# Creates appshots.config.ts in the current directory
+```
 
 ## Config File
 
-Create an `appshots.config.ts` for reusable settings:
+For repeatable workflows, create an `appshots.config.ts`:
 
 ```typescript
 import { defineConfig } from 'appshots';
@@ -157,28 +150,44 @@ export default defineConfig({
 
 Also supports `.js`, `.mjs`, and `.json` formats.
 
-## Programmatic API
+## CLI Reference
 
-```typescript
-import { frameScreenshot, captureScreenshots, validateScreenshots, getDevice } from 'appshots';
+### `appshots frame <input>`
 
-// Frame a screenshot
-const buffer = await frameScreenshot({
-  input: './screenshot.png',
-  device: 'iphone-6.9',
-  title: 'Welcome',
-  options: {
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-  },
-});
+| Option | Description | Default |
+|--------|-------------|---------|
+| `-d, --device <slug>` | Target device preset | `iphone-6.9` |
+| `-o, --output <dir>` | Output directory | `./screenshots/framed` |
+| `-b, --background <value>` | Solid color or CSS gradient | `#000000` |
+| `-t, --title <text>` | Title text overlay | — |
+| `-s, --subtitle <text>` | Subtitle text overlay | — |
+| `--padding <ratio>` | Padding ratio (0–0.4) | `0.08` |
+| `--border-radius <ratio>` | Corner radius ratio (0–0.2) | `0.04` |
+| `--landscape` | Landscape orientation | — |
+| `--no-shadow` | Disable drop shadow | — |
+| `-c, --config <path>` | Config file path | — |
 
-// Get device specs
-const spec = getDevice('iphone-6.9');
-// { name: 'iPhone 6.9"', width: 1320, height: 2868, ... }
+### `appshots capture`
 
-// Validate screenshots
-const results = await validateScreenshots('./screenshots');
-```
+| Option | Description | Default |
+|--------|-------------|---------|
+| `-u, --url <url>` | Base URL of the running app | `http://localhost:3000` |
+| `-d, --device <slug>` | Target device preset | `iphone-6.9` |
+| `-p, --path <paths...>` | URL paths to capture | — |
+| `-o, --output <dir>` | Output directory | `./screenshots` |
+| `--landscape` | Landscape orientation | — |
+| `-c, --config <path>` | Config file path | — |
+
+### `appshots validate <dir>`
+
+Checks: dimensions, format (PNG/JPEG), transparency, file size (< 10 MB), color space (sRGB).
+
+### `appshots devices`
+
+| Option | Description |
+|--------|-------------|
+| `--platform <name>` | Filter by platform (`ios`, `android`, `macos`, `watchos`, `tvos`, `visionos`) |
+| `--category <name>` | Filter by category (`phone`, `tablet`, `desktop`, `watch`, `tv`, `headset`) |
 
 ## Device Presets
 
@@ -192,15 +201,34 @@ const results = await validateScreenshots('./screenshots');
 | `iphone-6.1` | 1170 x 2532 | iPhone 14, 13, 12 |
 | `iphone-5.5` | 1242 x 2208 | iPhone 8 Plus, 7 Plus |
 | `ipad-13` | 2064 x 2752 | iPad Pro M5/M4, iPad Air M3 |
-| `ipad-13-alt` | 2048 x 2732 | iPad Pro 12.9" (6th–1st gen) |
 | `ipad-11` | 1668 x 2388 | iPad Pro 11", iPad Air |
 | `android-phone` | 1080 x 1920 | Standard Android (16:9) |
 | `android-phone-tall` | 1080 x 2400 | Modern Android (20:9) |
-| `android-tablet-7` | 1200 x 1920 | 7" Android tablet |
 | `android-tablet-10` | 1600 x 2560 | 10" Android tablet |
 | `mac` | 2880 x 1800 | MacBook Pro |
 
-Run `appshots devices` for the full list of 26 presets.
+Run `appshots devices` for all 26 presets including Apple Watch, Apple TV, and Vision Pro.
+
+## Programmatic API
+
+```typescript
+import { frameScreenshot, captureScreenshots, validateScreenshots, getDevice } from 'appshots';
+
+// Frame a screenshot
+const buffer = await frameScreenshot({
+  input: './screenshot.png',
+  device: 'iphone-6.9',
+  title: 'Welcome',
+  options: { background: 'linear-gradient(135deg, #667eea, #764ba2)' },
+});
+
+// Get device specs
+const spec = getDevice('iphone-6.9');
+// { name: 'iPhone 6.9"', width: 1320, height: 2868, dpr: 3, ... }
+
+// Validate a directory
+const results = await validateScreenshots('./screenshots');
+```
 
 ## License
 
