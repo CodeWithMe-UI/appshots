@@ -12,7 +12,7 @@ program
   .description(
     'Generate App Store-ready screenshots. Capture, frame, and validate.'
   )
-  .version('1.2.0');
+  .version('1.2.1');
 
 program
   .command('frame <input>')

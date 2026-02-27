@@ -417,7 +417,7 @@ function buildDeviceTextSvg(
   const font = `'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`;
   const titleFontSize = Math.round(canvasW * opts.titleSize);
   const subtitleFontSize = Math.round(canvasW * opts.subtitleSize);
-  const titleSpacing = Math.max(1, Math.round(titleFontSize * 0.02));
+  const titleSpacing = Math.max(1, Math.round(titleFontSize * 0.08));
   const titleAttrs = `text-anchor="middle" font-size="${titleFontSize}" font-weight="800" fill="${opts.titleColor}" font-family="${font}" letter-spacing="${titleSpacing}"`;
   const subtitleSpacing = Math.max(1, Math.round(subtitleFontSize * 0.01));
   const subtitleAttrs = `text-anchor="middle" font-size="${subtitleFontSize}" font-weight="500" fill="${opts.subtitleColor}" font-family="${font}" letter-spacing="${subtitleSpacing}"`;
@@ -650,7 +650,7 @@ function buildTextSvg(
 
   if (title) {
     const titleY = padY + Math.round(titleFontSize * 1.25);
-    const ls = Math.max(1, Math.round(titleFontSize * 0.02));
+    const ls = Math.max(1, Math.round(titleFontSize * 0.08));
     textElements += `<text x="${cx}" y="${titleY}" text-anchor="middle"
       font-size="${titleFontSize}" font-weight="800" fill="${opts.titleColor}"
       font-family="${font}" letter-spacing="${ls}">${escapeXml(title)}</text>`;
