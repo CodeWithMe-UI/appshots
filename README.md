@@ -24,7 +24,7 @@ npx appshots frame screenshot.png \
 
 **appshots** handles three things:
 
-1. **Frame** — wrap raw screenshots in backgrounds, rounded corners, shadows, and text
+1. **Frame** — wrap raw screenshots in realistic device frames with backgrounds, shadows, and text
 2. **Capture** — screenshot a running web app at exact device pixel ratios
 3. **Validate** — check dimensions, format, and file size against store requirements
 
@@ -60,6 +60,12 @@ appshots frame ./screenshots \
   --background "linear-gradient(135deg, #667eea, #764ba2)" \
   --title "Your App Name" \
   --subtitle "Your tagline here"
+
+# Alternate text position (text on top, phone from bottom)
+appshots frame ./screenshots --device iphone-6.9 \
+  --background "linear-gradient(170deg, #134E4A, #14B8A6)" \
+  --title "Scan Any Menu" --subtitle "Photo, URL, or PDF" \
+  --text-position top
 
 # Silver device frame
 appshots frame ./screenshots --device iphone-6.9 \
@@ -130,6 +136,7 @@ export default defineConfig({
     subtitleColor: 'rgba(255,255,255,0.7)',
     shadow: true,
     frameColor: 'black',
+    textPosition: 'bottom',
     pattern: 'dots',
     patternOpacity: 0.1,
   },
@@ -178,6 +185,7 @@ Also supports `.js`, `.mjs`, and `.json` formats.
 | `--frame-color <color>` | Frame color: `black`, `silver`, `gold`, `blue`, `red`, `white`, or hex | `black` |
 | `--pattern <name>` | Background pattern: `dots`, `grid`, `diagonal`, `waves`, `diamonds`, `cross-dots` | — |
 | `--pattern-opacity <ratio>` | Pattern opacity (0–1) | `0.1` |
+| `--text-position <pos>` | Text position: `top` or `bottom` | `bottom` |
 | `-c, --config <path>` | Config file path | — |
 
 ### `appshots capture`

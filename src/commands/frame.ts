@@ -25,6 +25,7 @@ interface FrameCommandOptions {
   frameColor?: string;
   pattern?: string;
   patternOpacity?: string;
+  textPosition?: string;
 }
 
 export async function frameCommand(
@@ -62,6 +63,7 @@ export async function frameCommand(
     ...(opts.frameColor && { frameColor: opts.frameColor }),
     ...(opts.pattern && { pattern: opts.pattern }),
     ...(opts.patternOpacity && { patternOpacity: parseFloat(opts.patternOpacity) }),
+    ...(opts.textPosition && { textPosition: opts.textPosition as 'top' | 'bottom' }),
   };
 
   // Get per-screen titles from config

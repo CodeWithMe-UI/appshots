@@ -12,7 +12,7 @@ program
   .description(
     'Generate App Store-ready screenshots. Capture, frame, and validate.'
   )
-  .version('1.1.0');
+  .version('1.2.0');
 
 program
   .command('frame <input>')
@@ -30,6 +30,7 @@ program
   .option('--frame-color <color>', 'device frame color (black, silver, gold, blue, red, white, or hex)')
   .option('--pattern <name>', 'background pattern (dots, grid, diagonal, waves, diamonds, cross-dots)')
   .option('--pattern-opacity <ratio>', 'pattern opacity (0-1)')
+  .option('--text-position <pos>', 'text position: top or bottom', 'bottom')
   .option('-c, --config <path>', 'config file path')
   .action(frameCommand);
 
